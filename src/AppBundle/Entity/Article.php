@@ -58,7 +58,7 @@ class Article
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag")
-     * @ORM\JoinTable(name="tag_user",
+     * @ORM\JoinTable(name="article_tag",
      *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      * )
