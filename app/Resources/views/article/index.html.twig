@@ -2,24 +2,32 @@
 
 {% block body %}
     <h1>Articles list</h1>
+
    <table>
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Content</th>
-                <th>Releasedate</th>
+                <th>Author</th>
+                <th>Release date</th>
+                <th>Category</th>
+                <th>Tags</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for article in articles %}
-            {{ dump(article) }}
             <tr>
-                <td><a href="{{ path('administration_article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>
                 <td>{{ article.name }}</td>
                 <td>{{ article.content }}</td>
-                <td>{% if article.releaseDate %}{{ article.releaseDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ article.user }}</td>
+                <td>{% if article.releaseDate %}{{ article.releaseDate|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ article.category.name }}</td>
+                <td>
+                    {% for tag in article.tags %}
+                    {{ tag.name }}
+                    {% endfor %}
+                </td>
                 <td>
                     <ul>
                         <li>
@@ -30,6 +38,7 @@
                         </li>
                     </ul>
                 </td>
+
             </tr>
         {% endfor %}
         </tbody>

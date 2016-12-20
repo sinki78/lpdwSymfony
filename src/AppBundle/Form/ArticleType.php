@@ -22,7 +22,6 @@ class ArticleType extends AbstractType
                 'class' => 'AppBundle:Category',
                 'choice_label' => 'name',
             ))
-            ->add('user')
             ->add('tags', EntityType::class, array(
                 'class' => 'AppBundle:Tag',
                 'property' => 'name',

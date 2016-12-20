@@ -24,7 +24,8 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('AppBundle:Article')->getAllArticle();
+        $articles = $em->getRepository('AppBundle:Article')->findAll();
+//        $articles = $em->getRepository('AppBundle:Article')->getAllArticle();
 
         return $this->render('article/index.html.twig', array(
             'articles' => $articles,
@@ -45,6 +46,7 @@ class ArticleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $article->setUser($this->getUser());
             $em->persist($article);
             $em->flush($article);
 

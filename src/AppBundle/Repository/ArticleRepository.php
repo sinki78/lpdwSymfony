@@ -12,13 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
-    public function getAllArticle(){
-        $query = $this->createQueryBuilder('a')
-            ->innerJoin('a.tags','tags')
-            ->innerJoin('tags.','tn')
-            ->orderBy('a.id', 'ASC')
-            ->getQuery()
-            ->getResult();
-        return $query;
-    }
+
 }
