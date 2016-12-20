@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class TagRepository extends EntityRepository
 {
+    public function getNames(){
+        $query = $this->createQueryBuilder('t')
+            ->select('t.name')
+            ->getQuery()
+            ->getResult();
+
+        return $query;
+    }
 }

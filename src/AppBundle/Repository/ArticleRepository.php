@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,5 +13,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
+    public function getBySearch(){
 
+    }
+
+    public function getNbArticleNoSearch(){
+        $query = $this->createQueryBuilder('a')
+            ->select('count(a)')
+            ->getQuery()
+            ->getSingleResult();
+        return $query;
+    }
+
+    public function getNbArticleWithSearch($search){
+        $query = $this->createQueryBuilder('a')
+            ->select('count(a)')
+            ->leftJoin('a.category','c')
+            ->leftJoin('a.tags','t')
+            ->where('c.name LIKE :search' )
+            ->orWhere('t.name LIKE :search')
+            ->setParameter(':search', $search)
+            ->getQuery()
+            ->getSingleResult();
+        return $query;
+    }
 }

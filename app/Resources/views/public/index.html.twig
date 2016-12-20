@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+Accueil
+
+
+<input id="search" name="search" data-path="{{ path('homepage_resp') }}" placeholder="Search" autocomplete="off" type="search">
+{% endblock %}
+{% block script %}
+<script>
+
+         $( function() {
+
+
+            $( "#search" ).autocomplete({
+                source: {{ get_categories_and_tags()|raw }},
+                select: function( event, ui ) {
+//                var page = $('.page').val();
+                    val = $(this).val();
+                 //   {#if(val != null)#}
+                  //      {#var nbpage = {{ get_nb_page(val) }};#}
+                   // {#else#}
+                    var nbpage = {{ get_nb_page() }};
+                    console.log(nbpage);
+                    dump(nbpage);
+                    dump({{ get_nb_page()|raw }});
+                    var url = $(this).attr('data-path');
+                    $.ajax({
+                    type: "GET",
+                    data: {'val': val, 'limit': 5, 'offset': 0},
+                    url: url,
+                    success: function (data) {
+                        console.log(data);
+                    }});
+//                    console.log($(this).val())
+                }
+            });
+         });
+
+
+
+//         $('#search').on('change', function () {
+//             alert($(this).val());
+//         });
+//
+//         $('.ui-menu .ui-menu-item').click(function () {
+//             alert('test');
+//         });
+
+
+//        $('#search').change(function() {
+//            var val = $( '#search' ).val();
+//            var test = $('.ui-menu-item-wrapper').text();
+//            if( val.length > 2){
+//                url = $(this).attr('data-path');
+//                console.log(test);
+//                console.log(url);
+//                console.log(val );
+//                $.ajax({
+//                    type: "GET",
+//                    data: {'val': val},
+//                    url: url,
+//                    success: function (data) {
+//                        console.log(data);
+//                        console.log('success');
+//                    }
+//                })
+//            }
+//        });
+
+
+
+</script>
+{% endblock %}
